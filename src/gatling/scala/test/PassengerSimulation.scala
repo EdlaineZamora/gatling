@@ -13,7 +13,7 @@ class PassengerSimulation extends Simulation {
         .pause(5)
 
   setUp(
-    passengerScenario.inject(atOnceUsers(3))
+    passengerScenario.inject(atOnceUsers(5))
   ).protocols(httpConfiguration)
 
 }
