@@ -14,8 +14,8 @@ Cenário Carga: Create Passengers
 - Cada usuário é inicializado a cada 24 segundos
 - É enviado um header
 - O teste inteiro tem duração de 2 minutos
-- Uma pausa de 1 segundo entre uma chamada e outra do mesmo usuário
-- Com um assert de tempo de resposta máximo de todas as requisições é de no máximo 100 milissegundos
+- Uma pausa de 1 segundo entre as requisições do usuário
+- Com assert de tempo de resposta máximo de todas as requisições sendo de no máximo 100 milissegundos
 - Com assert de status http igual a 200
 - Com assert de percentual de falha de todos os requests sendo menor que 5%
 
