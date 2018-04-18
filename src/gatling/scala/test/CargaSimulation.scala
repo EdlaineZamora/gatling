@@ -27,11 +27,11 @@ class CargaSimulation extends Simulation {
 
   def createPassenger = {
     exec(
-      http("Create passengers")
+      http("Create Passenger")
         .post("passengers")
         .body(StringBody(
           JSONObject.apply(
-            Map("name" -> "teste")
+            Map("name" -> "TDC Floripa")
           ).toString()
         ))
         .check(status.is(200))
@@ -54,8 +54,7 @@ class CargaSimulation extends Simulation {
     postPassengerCenarioCarga.inject(
       rampUsers(5) over(2 minutes)
     )
-  )
-    .protocols(httpConfiguration)
+  ).protocols(httpConfiguration)
     .assertions(forAll.failedRequests.percent.lessThan(5))
     .assertions(global.responseTime.max.lessThan(100))
 
