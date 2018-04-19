@@ -21,7 +21,7 @@ Cenário Desempenho: Create Passenger e Get Passengers
 
 class StressSimulation extends Simulation {
 
-  def createPassenger = {
+  def createAndGetPassenger = {
     exec(
       http("Create Passenger")
         .post("passengers")
@@ -31,21 +31,15 @@ class StressSimulation extends Simulation {
           ).toString()
         ))
     )
-  }
-
-  def getPassengers = {
-    exec(
-      http("Get Passengers")
-        .get("passengers")
-    )
+      .exec(http("Get Passengers")
+        .get("passengers"))
   }
 
   val httpConfiguration = http.baseURL("https://airlineapi.herokuapp.com/")
 
-  val postAndGetPassengerCenarioDesempenho = scenario("Desempenho: Create Passenger and Get Passengers")
+  val postAndGetPassengerCenarioDesempenho = scenario("Stress: Create Passenger and Get Passengers")
     .forever() {
-      createPassenger
-      getPassengers
+      createAndGetPassenger
     }
 
   setUp(
