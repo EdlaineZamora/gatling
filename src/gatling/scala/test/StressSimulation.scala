@@ -12,15 +12,16 @@ Cenário Desempenho: Create Passenger e Get Passengers
 - Request de post passenger
 - Request de get passengers
 - 10 usuários no total inicializados ao mesmo tempo
-- O teste inteiro tem duração de 2 minutos
+- O teste inteiro tem duração infinita
 
 - O que a gente quer com esse teste?
-  - Testar o desempenho (estabilidade) do sistema a medida que o tempo de execução aumenta
+  - Testar quantos usuários e requisições o sistema suporta
+  - Como o sistema se recupera de falhas
 */
 
-class DesempenhoSimulation extends Simulation {
+class StressSimulation extends Simulation {
 
-  def createAndGetPassenger = {
+  def createPassenger = {
     exec(
       http("Create Passenger")
         .post("passengers")
@@ -30,22 +31,27 @@ class DesempenhoSimulation extends Simulation {
           ).toString()
         ))
     )
-      .exec(http("Get Passengers")
-        .get("passengers"))
+  }
+
+  def getPassengers = {
+    exec(
+      http("Get Passengers")
+        .get("passengers")
+    )
   }
 
   val httpConfiguration = http.baseURL("https://airlineapi.herokuapp.com/")
 
-  val postPassengerCenarioDesempenho = scenario("Desempenho: Create and Get Passenger")
-    .during(2 minutes) {
-      createAndGetPassenger
+  val postAndGetPassengerCenarioDesempenho = scenario("Desempenho: Create Passenger and Get Passengers")
+    .forever() {
+      createPassenger
+      getPassengers
     }
 
   setUp(
-    postPassengerCenarioDesempenho.inject(
-      atOnceUsers(10)
+    postAndGetPassengerCenarioDesempenho.inject(
+      atOnceUsers(1000)
     )
   ).protocols(httpConfiguration)
-    .maxDuration(2 minutes)
 
 }
