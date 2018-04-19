@@ -53,5 +53,6 @@ class StressSimulation extends Simulation {
       atOnceUsers(1000)
     )
   ).protocols(httpConfiguration)
+    .maxDuration(10 seconds)
 
 }
