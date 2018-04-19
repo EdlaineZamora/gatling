@@ -56,7 +56,7 @@ class CargaSimulation extends Simulation {
     )
   ).protocols(httpConfiguration)
     .assertions(forAll.failedRequests.percent.lessThan(5))
-    .assertions(global.responseTime.max.lessThan(100))
+    .assertions(global.responseTime.max.lessThan(50000))
     .maxDuration(2 minutes)
 
 }
