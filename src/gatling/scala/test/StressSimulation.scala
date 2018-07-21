@@ -27,7 +27,7 @@ class StressSimulation extends Simulation {
         .post("passengers")
         .body(StringBody(
           JSONObject.apply(
-            Map("name" -> "TDC Floripa")
+            Map("name" -> "MTC 2018")
           ).toString()
         ))
     )
